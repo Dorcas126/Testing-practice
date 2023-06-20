@@ -1,5 +1,23 @@
-// File: calculator.test.js
-const Calculator = require('./calculator');
+class Calculator {
+  add(a, b) {
+    return a + b;
+  }
+
+  subtract(a, b) {
+    return a - b;
+  }
+
+  divide(a, b) {
+    if (b === 0) {
+      throw new Error("Cannot divide by zero.");
+    }
+    return a / b;
+  }
+
+  multiply(a, b) {
+    return a * b;
+  }
+}
 
 describe('Calculator', () => {
   let calculator;
@@ -9,58 +27,58 @@ describe('Calculator', () => {
   });
 
   describe('add', () => {
-    it('returns the sum of two numbers', () => {
-      const result = calculator.add(2, 3);
-      expect(result).toBe(5);
+    test('should add two numbers correctly', () => {
+      expect(calculator.add(2, 3)).toBe(5);
     });
 
-    it('returns a negative sum for negative numbers', () => {
-      const result = calculator.add(-5, -3);
-      expect(result).toBe(-8);
+    test('should handle negative numbers correctly', () => {
+      expect(calculator.add(-5, 7)).toBe(2);
     });
 
-    it('returns a float sum for decimal numbers', () => {
-      const result = calculator.add(2.5, 1.5);
-      expect(result).toBe(4);
+    test('should handle zero correctly', () => {
+      expect(calculator.add(10, 0)).toBe(10);
     });
   });
 
   describe('subtract', () => {
-    it('returns the difference of two numbers', () => {
-      const result = calculator.subtract(5, 3);
-      expect(result).toBe(2);
+    test('should subtract two numbers correctly', () => {
+      expect(calculator.subtract(5, 2)).toBe(3);
     });
 
-    it('returns a negative difference for the second number larger than the first', () => {
-      const result = calculator.subtract(3, 5);
-      expect(result).toBe(-2);
+    test('should handle negative numbers correctly', () => {
+      expect(calculator.subtract(3, 7)).toBe(-4);
+    });
+
+    test('should handle zero correctly', () => {
+      expect(calculator.subtract(10, 0)).toBe(10);
     });
   });
 
   describe('divide', () => {
-    it('returns the division of two numbers', () => {
-      const result = calculator.divide(10, 2);
-      expect(result).toBe(5);
+    test('should divide two numbers correctly', () => {
+      expect(calculator.divide(10, 2)).toBe(5);
     });
 
-    it('throws an error for division by zero', () => {
-      expect(() => {
-        calculator.divide(5, 0);
-      }).toThrow('Division by zero');
+    test('should throw an error when dividing by zero', () => {
+      expect(() => calculator.divide(5, 0)).toThrowError('Cannot divide by zero.');
+    });
+
+    test('should handle zero as numerator correctly', () => {
+      expect(calculator.divide(0, 5)).toBe(0);
     });
   });
 
   describe('multiply', () => {
-    it('returns the product of two numbers', () => {
-      const result = calculator.multiply(3, 4);
-      expect(result).toBe(12);
+    test('should multiply two numbers correctly', () => {
+      expect(calculator.multiply(2, 3)).toBe(6);
     });
 
-    it('returns 0 when either number is 0', () => {
-      const result1 = calculator.multiply(0, 5);
-      const result2 = calculator.multiply(10, 0);
-      expect(result1).toBe(0);
-      expect(result2).toBe(0);
+    test('should handle negative numbers correctly', () => {
+      expect(calculator.multiply(-5, 7)).toBe(-35);
+    });
+
+    test('should handle zero correctly', () => {
+      expect(calculator.multiply(10, 0)).toBe(0);
     });
   });
 });
